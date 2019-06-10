@@ -8,7 +8,7 @@ class ListNode:
 
   """Wrap the given value in a ListNode and insert it
   after this node. Note that this node could already
-  have a next node it is point to."""
+  have a next node it is pointing to."""
   def insert_after(self, value):
     current_next = self.next
     self.next = ListNode(value, self, current_next)
@@ -43,26 +43,74 @@ class DoublyLinkedList:
   def __len__(self):
     return self.length
 
+  """replaces the head of the list with a new value that 
+  is passed in.
+  """
   def add_to_head(self, value):
-    pass
+    new_node = ListNode(value)
+    if not self.head and not self.tail:
+      self.head = new_node
+      self.tail = new_node
+    else:
+      old_head = self.head
+      old_head.insert_before(value)
+      self.head = old_head.prev
 
+  """removes the head node and returns the value stored 
+  in it.
+  """
   def remove_from_head(self):
-    pass
+    if not self.head:
+      return None
+    else:
+      removed_head = self.head
+      self.head.delete()
+      return removed_head.value
 
+  """replaces the tail of the list with a new value that 
+  is passed in
+  """
   def add_to_tail(self, value):
-    pass
-
+    new_node = ListNode(value)
+    if not self.head and not self.tail:
+      self.head = new_node
+      self.tail = new_node
+    else:
+      self.tail.next = new_node
+      self.tail = new_node
+  """ removes the tail node and returns the value stored 
+  in it.
+  """
   def remove_from_tail(self):
-    pass
+    if not self.tail:
+      return None
+    else:
+      removed_tail = self.tail
+      self.tail.delete()
+      return removed_tail.value
 
+  """ takes a reference to a node in the list and moves
+  it to the front of the list, shifting all other list 
+  node down
+  """
   def move_to_front(self, node):
     pass
 
+  """ takes a reference to a node in the list and moves 
+  it to the end of the list, shifting all other list nodes
+  up
+  """
   def move_to_end(self, node):
     pass
 
+  """ takes a reference to a node in the list and removes
+  it from the list. The deleted node's previous and next 
+  pointers should point to each afterwards.
+  """
   def delete(self, node):
     pass
     
+  """returns the maximum value in the list
+  """
   def get_max(self):
     pass
