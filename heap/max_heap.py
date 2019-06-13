@@ -8,46 +8,36 @@ class Heap:
   def insert(self, value):
     self.storage.append(value)
     self._bubble_up(len(self.storage) - 1)
-    print(self.storage)
 
   """removes and returns the 'topmost' value from the heap; this method
   needs to ensure that the heap property is maintained after the topmost
   element has been removed
   """
+  # TODO
   def delete(self):
-    # deleted = self.storage[0]
-    pass 
+    topmost_value = self.storage.pop(0)
+    self._sift_down(0)
+    self._bubble_up(len(self.storage) - 1)
+    self._bubble_up(len(self.storage) - 2)
+    self._bubble_up(len(self.storage) - 3)
+    self._bubble_up(len(self.storage) - 4)
+    return topmost_value
 
   """returns the maximum value in the heap in constant time
   """
   def get_max(self):
-    if self.storage[0]:
-      return self.storage[0]
-    else: 
-      return None
+    return self.storage[0]
+
 
   """returns the number of elements stored in the heap
   """
   def get_size(self):
-    pass
-    # size = len(self.storage)
-    # return size
+    return len(self.storage)
 
   """moves the element at the specified index 'up' the heap by swapping it
   with its parent if the parent's vaule is less than the value at the spefified index.
   """
   def _bubble_up(self, index):
-    # keep bubbling up unitl we've either reached the top of the heap
-    # or we've reached a point where the parent is higher priority
-    # on a single bubble_up iteration
-    # get the parent index
-    # compare the child against the value of the parent
-    # if the child'd value is higher priority than its parent value
-      # swap them
-      # update index
-    # child is a a valid spot
-    # stop bubbling up
-
     while index > 0:
       parent = (index - 1) // 2
       if self.storage[index] > self.storage[parent]:
@@ -60,5 +50,29 @@ class Heap:
   larger value. If the larger child's value is larger than the parent's value, the 
   child element is swapped with the parent.
   """
+  
   def _sift_down(self, index):
-    pass
+    while index > 0:
+      left_child_index = 2*index + 1
+      right_child_index = 2*index + 2
+
+      if left_child_index <= self.get_size() and right_child_index <= self.get_size():
+        if self.storage[left_child_index] >= self.storage[rightChild]:
+          if self.storage[left_child_index] > self.storage[index]:
+            self.storage[index], self.storage[left_child_index] = self.storage[left_child_index], self.storage[index]
+        else:
+          if self.storage[right_child_index] > self.storage[index]:
+            self.storage[index], self.storage[right_child_index] = self.storage[right_child_index], self.storage[index]
+
+      if left_child_index <= self.get_size():
+        if self.storage[left_child_index] > self.storage[index]:
+          self.storage[index], self.storage[left_child_index] = self.storage[left_child_index], self.storage[index]
+
+      if right_child_index <= self.get_size():
+        if self.storage[right_child_index] > self.storage[index]:
+          elf.storage[index], self.storage[right_child_index] = self.storage[right_child_index], self.storage[index]
+      
+      else: 
+        break
+
+
